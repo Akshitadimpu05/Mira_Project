@@ -1,0 +1,55 @@
+# version format ex. "0.0.1"
+version: "0.0.5"
+
+# Basic metadata for the agent
+metadata:
+  name: "recipe-generator"
+  description: "This flow helps you generate recipes based on ingredients available at home."
+  author: "akshitadimpu" # Replace with your MIRA username
+  tags: [recipe, cooking, food, ingredients, meal, kitchen] # Tags to categorize the flow
+  private: false # Set to true if you want the flow to be private
+
+# Define the input variables required
+inputs:
+  ingredients:
+    type: string # The list of ingredients in a comma-separated format
+    description: "Enter a list of ingredients available at home."
+    required: true
+    example: "chicken, garlic, onion, tomato, olive oil"
+  cuisine:
+    type: string
+    description: "Enter the cuisine type you prefer for the recipe (optional)."
+    required: false
+    example: "Italian, Mexican, Indian, etc."
+  dietary_restrictions:
+    type: string
+    description: "Enter any dietary restrictions (optional)."
+    required: false
+    example: "gluten-free, vegetarian, vegan, etc."
+
+# LLM configuration
+model:
+  provider: "anthropic" # e.g., openai, anthropic, meta, etc.
+  name: "claude-3.5-sonnet" # You can use a language model suited for recipe generation
+
+# Prompt template configuration
+prompt: |
+  Given the following ingredients: {ingredients}, generate a recipe that can be made with them. 
+  Optionally, consider the cuisine type: {cuisine}, and any dietary restrictions: {dietary_restrictions}.
+  Provide the recipe in a clear and concise format including ingredients, preparation steps, and any cooking tips.
+
+# ReadME configuration
+readme: |
+  This flow helps you generate recipes based on the ingredients you have at home. 
+  You can optionally specify a cuisine type or dietary restrictions. 
+  The model will use the provided ingredients and optional preferences to suggest a recipe.
+
+  Example 1:
+    Input1: "chicken, garlic, onion, tomato, olive oil"
+    Input2: "Italian"
+    Output: "A delicious Italian chicken pasta recipe."
+    
+  Example 2:
+    Input1: "potatoes, carrots, peas, garlic, olive oil"
+    Input2: "Vegan"
+    Output: "A hearty vegan vegetable stew recipe."
